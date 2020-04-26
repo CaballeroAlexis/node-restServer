@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(require("./routes/users"));
+app.use(require("./routes/index"));
 
 mongoose.connect(process.env.URL_DB, 
   {useNewUrlParser:true,useCreateIndex:true},

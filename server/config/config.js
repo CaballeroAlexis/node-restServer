@@ -12,6 +12,18 @@ process.env.PORT = process.env.PORT || 3000;
 // =======================
 process.env.NODE_ENV =process.env.NODE_ENV  || 'dev'
 
+
+//========================
+// VENCIMIENTO DEL TOKEN
+// =======================
+60 * 60 * 24 * 30
+process.env.CAD_TOKEN =  60 * 60 * 24 * 30;
+
+//========================
+// SEED DE AUTENTICACIÓN
+// =======================
+process.env.SEED = process.env.SEED  || 'secret-seed';
+
 //========================
 // BASE DE DATOS
 // =======================

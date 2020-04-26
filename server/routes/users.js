@@ -1,11 +1,13 @@
 const express = require("express");
 const User = require("../models/user");
+const {verificarToken,verificarRole} = require("../middlewares/autenticacion");
+
 const bcrypt = require("bcrypt");
 const _ = require("underscore");
 
 const app = express();
 
-app.get("/users", function (req, res) {
+app.get("/users", [verificarToken,verificarRole], (req, res) => {
 	let desde = req.query.desde || 0;
 	desde = Number(desde);
 	let limite = req.query.limite || 5;
@@ -30,7 +32,7 @@ app.get("/users", function (req, res) {
 		});
 });
 
-app.post("/users", function (req, res) {
+app.post("/users", verificarToken, (req, res) => {
 	let body = req.body;
 	let usuario = new User({
 		nombre: body.nombre,
@@ -53,7 +55,7 @@ app.post("/users", function (req, res) {
 	});
 });
 
-app.put("/users/:id", function (req, res) {
+app.put("/users/:id", verificarToken, (req, res) => {
 	let id = req.params.id;
 	let body = _.pick(req.body, ["nombre", "email", "img", "role", "estado"]);
 	User.findByIdAndUpdate(
@@ -75,7 +77,7 @@ app.put("/users/:id", function (req, res) {
 	);
 });
 
-app.delete("/users/:id", function (req, res) {
+app.delete("/users/:id", verificarToken, (req, res) => {
 	let id = req.params.id;
 	let body = {
 		estado:false
